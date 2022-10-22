@@ -1,4 +1,5 @@
 #include "Game.h"
+///#include "Enemy.h"
 
 ///Private functions
 void Game::initializeVariables() {
@@ -6,8 +7,8 @@ void Game::initializeVariables() {
     this->window = nullptr;
 
     ///Game logic
-    this->coins=0;
-    this->score=0;
+    this->coins = 0;
+    this->score = 0;
 }
 
 void Game::initializeWindow() {
@@ -23,11 +24,17 @@ void Game::initializeWindow() {
 Game::Game() {
     this->initializeVariables();
     this->initializeWindow();
-    enemy=new Enemy{};
+    enemy = new Enemy{};
 }
 
 Game::~Game() {
     delete this->window;
+}
+
+///Operators
+std::ostream &operator<<(std::ostream &os, const Game &game) {
+    os << "coins: " << game.coins << " score: " << game.score << " enemy: " << game.enemy;
+    return os;
 }
 
 ///Accessors
@@ -55,29 +62,25 @@ void Game::pollEvent() {
 
 ///Mouse position relative to the window/ view
 void Game::updateMousePosition() {
-    this->mousePositionWindow=sf::Mouse::getPosition(*this->window);
-    this->mousePositionView=this->window->mapPixelToCoords(this->mousePositionWindow);
+    this->mousePositionWindow = sf::Mouse::getPosition(*this->window);
+    this->mousePositionView = this->window->mapPixelToCoords(this->mousePositionWindow);
     ///std::cout<<mousePositionWindow.x<<" "<<mousePositionWindow.y<<"\n";
 }
 
 void Game::update() {
     this->pollEvent();
     this->updateMousePosition();
-    std::cout<<*enemy;
+    enemy->UpdateEnemy(this->mousePositionView);
+    std::cout << *enemy;
 }
 
 void Game::render() {
     ///Clear old frame
     this->window->clear(sf::Color::White);
     ///Draw game aka render objects
-    this->window->draw(enemy->renderEnemy());
+    if (enemy->getAlive())
+        this->window->draw(enemy->renderEnemy());
+    this->window->draw(UI.getButton());
     ///Display what was drawn
     this->window->display();
 }
-
-
-
-
-
-
-

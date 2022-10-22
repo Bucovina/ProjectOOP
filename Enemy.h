@@ -14,6 +14,7 @@ private:
 
     ///Game logic
     int hp;
+    bool alive;
 
 public:
     ///Contructor and Destructor
@@ -28,8 +29,10 @@ public:
     ///Getters
     const sf::RectangleShape &renderEnemy() const;
 
+    bool getAlive() const;
+
     ///Functions
-    void UpdateEnemy();
+    void UpdateEnemy(sf::Vector2f mousePositionView);
 };
 
 

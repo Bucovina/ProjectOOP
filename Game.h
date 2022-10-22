@@ -1,5 +1,6 @@
 #ifndef MAIN_CPP_GAME_H
 #define MAIN_CPP_GAME_H
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -7,6 +8,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include "Enemy.h"
+#include "UserInterface.h"
 
 ///"Game engine" class
 
@@ -27,6 +29,7 @@ private:
 
     ///Game objects
     Enemy *enemy;
+    UserInterface UI;
 
     ///Private functions
     void initializeVariables();
@@ -39,6 +42,9 @@ public:
     Game();
 
     ~Game();
+
+    ///Operators
+    friend std::ostream &operator<<(std::ostream &os, const Game &game);
 
     ///Accessors
     bool runningGame() const;
