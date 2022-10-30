@@ -18,15 +18,24 @@ Enemy::~Enemy() = default;
 Enemy &Enemy::operator=(const Enemy &enemy) {
     body = enemy.body;
     hp = enemy.hp;
+    alive =enemy.alive;
     return *this;
 }
+
+
+Enemy::Enemy(const Enemy &enemy) {
+    body = enemy.body;
+    hp = enemy.hp;
+    alive =enemy.alive;
+}
+
 
 std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
     os << " hp: " << enemy.hp << " alive: " << enemy.alive << "\n";
     return os;
 }
 
-///Getters
+///Getters and setters
 const sf::RectangleShape &Enemy::renderEnemy() const {
     return body;
 }
@@ -35,10 +44,14 @@ bool Enemy::getAlive() const {
     return alive;
 }
 
+void Enemy::setAlive(bool o_alive) {
+    Enemy::alive = o_alive;
+}
+
 ///Function
-void Enemy::UpdateEnemy(sf::Vector2f mousePositionView) {
+void Enemy::DamageEnemy(sf::Vector2f mousePositionView) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (this->body.getGlobalBounds().contains(mousePositionView)) {
+        if (this->body.getGlobalBounds().contains(mousePositionView) and this->hp>0) {
             this->hp = this->hp - 1;
         }
         if (this->hp == 0)

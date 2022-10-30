@@ -19,6 +19,9 @@ private:
     sf::VideoMode videoMode;
     sf::Event event;
 
+    ///Functionality
+    bool isPressed;
+
     ///Mouse positions
     sf::Vector2i mousePositionWindow;
     sf::Vector2f mousePositionView;
@@ -28,7 +31,7 @@ private:
     int score;
 
     ///Game objects
-    Enemy *enemy;
+    Enemy enemy;
     UserInterface UI;
 
     ///Private functions
@@ -45,6 +48,11 @@ public:
 
     ///Operators
     friend std::ostream &operator<<(std::ostream &os, const Game &game);
+
+
+
+    ///Getter and Setter
+    const sf::Vector2f &getMousePositionView() const;
 
     ///Accessors
     bool runningGame() const;

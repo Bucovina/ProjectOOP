@@ -20,10 +20,13 @@ public:
     ~UserInterface();
 
     ///Operators
-
+    friend std::ostream &operator<<(std::ostream &os, const UserInterface &anInterface);
 
     ///Getter
     const sf::RectangleShape &getButton() const;
+
+    ///Functions
+    void NextEnemy(bool alive,int hp);
 };
 
 

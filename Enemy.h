@@ -24,15 +24,19 @@ public:
     ///Operators
     Enemy& operator=(const Enemy& enemy);
 
+    Enemy(const Enemy& enemy);
+
     friend std::ostream &operator<<(std::ostream &os, const Enemy &enemy);
 
-    ///Getters
+    ///Getters and Setters
     const sf::RectangleShape &renderEnemy() const;
+
+    void setAlive(bool alive);
 
     bool getAlive() const;
 
     ///Functions
-    void UpdateEnemy(sf::Vector2f mousePositionView);
+    void DamageEnemy(sf::Vector2f mousePositionView);
 };
 
 
