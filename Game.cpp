@@ -6,9 +6,6 @@ void Game::initializeVariables() {
     ///Window
     this->window = nullptr;
 
-    ///Functionality
-    this->isPressed= false;
-
     ///Game logic
     this->coins = 0;
     this->score = 0;
@@ -62,15 +59,14 @@ void Game::pollEvent() {
                     this->window->close();
                 break;
             case sf::Event::MouseButtonPressed:
-                if (event.mouseButton.button == sf::Mouse::Left and !isPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
                     this->enemy.DamageEnemy(this->getMousePositionView());
                     std::cout << enemy;
-                    isPressed= true;
+                    this->enemy.NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
                 }
                 break;
             case sf::Event::MouseButtonReleased:
-                if (event.mouseButton.button == sf::Mouse::Left and isPressed) {
-                    isPressed= false;
+                if (event.mouseButton.button == sf::Mouse::Left) {
                 }
             default:
                 break;
@@ -88,6 +84,10 @@ void Game::updateMousePosition() {
 void Game::update() {
     this->pollEvent();
     this->updateMousePosition();
+    if(enemy.getAlive()==0)
+        this->NextEnemyButton.setOn();
+    else
+        this->NextEnemyButton.setOff(this->enemy.getCurrentHp(),this->enemy.getInitialHp());
 }
 
 void Game::render() {
@@ -96,11 +96,11 @@ void Game::render() {
     ///Draw game aka render objects
     if (enemy.getAlive())
         this->window->draw(enemy.renderEnemy());
-    else
-        this->window->draw(UI.getButton());
+    this->window->draw(NextEnemyButton.getBackGround());
+    this->window->draw(NextEnemyButton.getButton());
+    this->window->draw(NextEnemyButton.getText());
     ///Display what was drawn
     this->window->display();
 }
-
 
 ///Game(const Game&) = delete;

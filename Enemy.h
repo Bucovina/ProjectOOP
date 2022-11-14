@@ -1,5 +1,6 @@
 #ifndef MAIN_CPP_ENEMY_H
 #define MAIN_CPP_ENEMY_H
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -13,30 +14,37 @@ private:
     sf::RectangleShape body;
 
     ///Game logic
-    int hp;
+    float size;
+    int initialHp;
+    int currentHp;
     bool alive;
 
 public:
-    ///Contructor and Destructor
+    ///Constructor and Destructor
     Enemy();
+
     ~Enemy();
 
     ///Operators
-    Enemy& operator=(const Enemy& enemy);
+    Enemy &operator=(const Enemy &enemy);
 
-    Enemy(const Enemy& enemy);
+    Enemy(const Enemy &enemy);
 
     friend std::ostream &operator<<(std::ostream &os, const Enemy &enemy);
 
     ///Getters and Setters
     const sf::RectangleShape &renderEnemy() const;
 
-    void setAlive(bool alive);
-
     bool getAlive() const;
+
+    int getCurrentHp() const;
+
+    int getInitialHp() const;
 
     ///Functions
     void DamageEnemy(sf::Vector2f mousePositionView);
+
+    void NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext);
 };
 
 

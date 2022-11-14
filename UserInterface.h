@@ -7,11 +7,15 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include "Enemy.h"
 
 class UserInterface {
 private:
     ///UI
     sf::RectangleShape button;
+    sf::RectangleShape backGround;
+    sf::Text text;
+    sf::Font font;
 
 public:
     ///Constructor and Destructor
@@ -25,9 +29,13 @@ public:
     ///Getter
     const sf::RectangleShape &getButton() const;
 
-    ///Functions
-    void NextEnemy(bool alive,int hp);
+    const sf::RectangleShape &getBackGround() const;
+
+    const sf::Text &getText() const;
+
+    ///Function
+    void setOff(int currentHp,int initialHp);
+
+    void setOn();
 };
-
-
 #endif //MAIN_CPP_USERINTERFACE_H
