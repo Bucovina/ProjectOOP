@@ -8,7 +8,7 @@ UI_Text::UI_Text() {
     this->backGround.setOutlineColor(sf::Color::Black);
     this->backGround.setOutlineThickness(4.f);
 
-    if(!font.loadFromFile("Resources/textfont.otf"))
+    if(!font.loadFromFile("textfont.otf"))
     {
         std::cout<<"Font error!\n";
         ///throw ;
