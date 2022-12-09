@@ -10,18 +10,15 @@
 #include "Enemy.h"
 
 class UserInterface {
-private:
+protected:
     ///UI
     sf::RectangleShape button;
-    sf::RectangleShape backGround;
-    sf::Text text;
-    sf::Font font;
 
 public:
     ///Constructor and Destructor
     UserInterface();
 
-    ~UserInterface();
+    virtual ~UserInterface();
 
     ///Operators
     friend std::ostream &operator<<(std::ostream &os, const UserInterface &anInterface);
@@ -29,13 +26,8 @@ public:
     ///Getter
     const sf::RectangleShape &getButton() const;
 
-    const sf::RectangleShape &getBackGround() const;
-
-    const sf::Text &getText() const;
-
     ///Function
-    void setOff(int currentHp,int initialHp);
-
-    void setOn();
+    void MoreDamage(sf::Vector2f mousePositionView);
 };
+
 #endif //MAIN_CPP_USERINTERFACE_H

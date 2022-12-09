@@ -9,13 +9,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # By default, treat warnings as errors; override via cmake defines or via env vars
-if(DEFINED WARNINGS_AS_ERRORS)
-  # do nothing, already defined
-elseif(DEFINED ENV{WARNINGS_AS_ERRORS})
-  set(WARNINGS_AS_ERRORS $ENV{WARNINGS_AS_ERRORS})
-else()
-  set(WARNINGS_AS_ERRORS ON)
-endif()
+if (DEFINED WARNINGS_AS_ERRORS)
+    # do nothing, already defined
+elseif (DEFINED ENV{WARNINGS_AS_ERRORS})
+    set(WARNINGS_AS_ERRORS $ENV{WARNINGS_AS_ERRORS})
+else ()
+    set(WARNINGS_AS_ERRORS ON)
+endif ()
 
 # disable them when releasing executables without explicitly requested debug info
 # use generator expressions to set flags correctly in both single and multi config generators
@@ -30,35 +30,35 @@ include(FetchContent)
 
 # NOTE: Also update SFML_VERSION env var in .github/workflows/cmake.yml:59
 FetchContent_Declare(
-  SFML
-  GIT_REPOSITORY https://github.com/SFML/SFML.git
-  GIT_TAG        863fef024619da7f59b6404087b454337a172ac1 # 2.6.x as of 2022-08-30
-  # GIT_TAG        72d88033e2f24be0fb1e9df614a56f3d5274154c # master as of 2022-08-30
-  # GIT_TAG        f7c88ee7ef4e1c705531cd614efb7dcff1f873cb # last commit merged in master before API breakage (2022-04-21)
-  # GIT_TAG        origin/master
-  # GIT_TAG        origin/2.6.x
-  # GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
+        SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 863fef024619da7f59b6404087b454337a172ac1 # 2.6.x as of 2022-08-30
+        # GIT_TAG        72d88033e2f24be0fb1e9df614a56f3d5274154c # master as of 2022-08-30
+        # GIT_TAG        f7c88ee7ef4e1c705531cd614efb7dcff1f873cb # last commit merged in master before API breakage (2022-04-21)
+        # GIT_TAG        origin/master
+        # GIT_TAG        origin/2.6.x
+        # GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
 )
 
 function(sfml_set_custom_stdlib target)
-    if(MSVC)
+    if (MSVC)
         target_compile_options(${target} PRIVATE "$<${debug_mode}:/fsanitize=address>")
-    elseif(APPLE)
-    elseif(UNIX)
-        if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    elseif (APPLE)
+    elseif (UNIX)
+        if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
             target_compile_options(${target} PRIVATE -stdlib=libc++)
             target_link_libraries(${target} PRIVATE "-stdlib=libc++")
-            if("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "14.")
+            if ("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "14.")
                 target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
                 target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
-            elseif("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "13.")
+            elseif ("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "13.")
                 target_compile_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
                 target_link_options(${target} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-Wl,-rpath,tools/llvm-project/build/lib>")
-            else()
+            else ()
                 message("No matching Clang version to add sanitizer flags!")
-            endif()
-        endif()
-    endif()
+            endif ()
+        endif ()
+    endif ()
 endfunction()
 
 FetchContent_MakeAvailable(SFML)
@@ -76,70 +76,70 @@ sfml_set_custom_stdlib(sfml-graphics)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h Enemy.cpp Enemy.h UserInterface.cpp UserInterface.h)
+add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h Enemy.cpp Enemy.h UserInterface.cpp UserInterface.h UI_Text.cpp UI_Text.h)
 
 ###############################################################################
 
 # target definitions
 
-if(GITHUB_ACTIONS)
-  message("NOTE: GITHUB_ACTIONS defined")
-  target_compile_definitions(${PROJECT_NAME} PRIVATE GITHUB_ACTIONS)
-endif()
+if (GITHUB_ACTIONS)
+    message("NOTE: GITHUB_ACTIONS defined")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE GITHUB_ACTIONS)
+endif ()
 
 ###############################################################################
 
 # custom compiler flags
 message("Compiler: ${CMAKE_CXX_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")
-if(MSVC)
+if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive- /wd4244 /wd4267 /external:anglebrackets /external:W0)
-    if(WARNINGS_AS_ERRORS)
-      target_compile_options(${PROJECT_NAME} PRIVATE /WX)
-    endif()
-else()
+    if (WARNINGS_AS_ERRORS)
+        target_compile_options(${PROJECT_NAME} PRIVATE /WX)
+    endif ()
+else ()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
-    if(WARNINGS_AS_ERRORS)
-      target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
-    endif()
+    if (WARNINGS_AS_ERRORS)
+        target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
+    endif ()
 
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
-    elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+    elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
         target_compile_options(${PROJECT_NAME} PRIVATE -stdlib=libc++)
         target_link_options(${PROJECT_NAME} PRIVATE -stdlib=libc++)
-    endif()
-endif()
+    endif ()
+endif ()
 
 ###############################################################################
 
 # sanitizers
 
-if(MSVC)
+if (MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:/fsanitize=address>")
-elseif(APPLE)
+elseif (APPLE)
     # if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     # first check Apple since Apple is also a kind of Unix
     target_compile_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
     target_link_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
     # endif()
-elseif(UNIX)
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+elseif (UNIX)
+    if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
         # we cannot mix sanitizers with Valgrind
-    elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-        if("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "14.")
+    elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+        if ("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "14.")
             # check leaks on Linux since macOS does not support the leaks sanitizer yet
             # leaks sanitizer is enabled by default on Linux, so we do not need to enable it explicitly
             target_compile_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
             target_link_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:-fsanitize=address,undefined>")
-        elseif("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "13.")
+        elseif ("${CMAKE_CXX_COMPILER_VERSION}" MATCHES "13.")
             # use semi-colons instead of spaces to separate arguments
             # it is recommended to quote generator expressions in order to avoid unintentional splitting
             target_compile_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins>")
             target_link_options(${PROJECT_NAME} PRIVATE "$<${debug_mode}:-fsanitize=memory,undefined;-fsanitize-recover=memory,undefined;-fsanitize-memory-track-origins;-Wl,-rpath,tools/llvm-project/build/lib>")
-        else()
+        else ()
             message("No matching Clang version to add sanitizer flags!")
-        endif()
-    endif()
-endif()
+        endif ()
+    endif ()
+endif ()
 
 ###############################################################################
 
@@ -155,3 +155,5 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
 # install(FILES some_file1.txt some_file2.md DESTINATION bin)
+install(FILES cmake-build-debug/FreeSans-1Zge.otf DESTINATION bin)
+install(FILES cmake-build-debug/background.jpg DESTINATION bin)

@@ -42,7 +42,7 @@ public:
     int getInitialHp() const;
 
     ///Functions
-    void DamageEnemy(sf::Vector2f mousePositionView);
+    void DamageEnemy(sf::Vector2f mousePositionView, int click_damage);
 
     void NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext);
 };

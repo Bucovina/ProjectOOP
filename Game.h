@@ -9,6 +9,7 @@
 #include <SFML/Network.hpp>
 #include "Enemy.h"
 #include "UserInterface.h"
+#include "UI_Text.h"
 
 ///"Game engine" class
 
@@ -26,16 +27,23 @@ private:
     ///Game logic
     int coins;
     int score;
+    static int click_damage;
 
     ///Game objects
     Enemy enemy;
-    UserInterface NextEnemyButton;
+    UI_Text NextEnemyButton;
+    UserInterface UpgradeButton;
+
+    ///Game background
+    sf::Texture backgroundTexture;
+    sf::Sprite background;
 
     ///Private functions
     void initializeVariables();
 
     void initializeWindow();
 
+    void initializeBackground();
 
 public:
     ///Constructor and Destructor
@@ -46,6 +54,9 @@ public:
     ///Operators
     friend std::ostream &operator<<(std::ostream &os, const Game &game);
 
+    static int getClickDamage();
+
+    static void setClickDamage(int clickDamage);
 
     ///Getter and Setter
     const sf::Vector2f &getMousePositionView() const;
@@ -63,4 +74,5 @@ public:
 
     void render();
 };
+
 #endif //MAIN_CPP_GAME_H

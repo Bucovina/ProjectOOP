@@ -20,9 +20,15 @@ void Game::initializeWindow() {
     this->window->setFramerateLimit(60);
 }
 
+void Game::initializeBackground() {
+    this->backgroundTexture.loadFromFile("background.jpg");
+    this->background.setTexture(this->backgroundTexture);
+}
+
 ///Constructor and Destructor
 Game::Game() {
     this->initializeVariables();
+    this->initializeBackground();
     this->initializeWindow();
 }
 
@@ -39,6 +45,14 @@ std::ostream &operator<<(std::ostream &os, const Game &game) {
 ///Getter and Setter
 const sf::Vector2f &Game::getMousePositionView() const {
     return mousePositionView;
+}
+
+int Game::getClickDamage() {
+    return click_damage;
+}
+
+void Game::setClickDamage(int clickDamage) {
+    click_damage = clickDamage;
 }
 
 ///Accessors
@@ -60,9 +74,10 @@ void Game::pollEvent() {
                 break;
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    this->enemy.DamageEnemy(this->getMousePositionView());
+                    this->enemy.DamageEnemy(this->getMousePositionView(), click_damage);
                     std::cout << enemy;
                     this->enemy.NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
+                    this->UpgradeButton.MoreDamage(this->getMousePositionView());
                 }
                 break;
             case sf::Event::MouseButtonReleased:
@@ -78,29 +93,30 @@ void Game::pollEvent() {
 void Game::updateMousePosition() {
     this->mousePositionWindow = sf::Mouse::getPosition(*this->window);
     this->mousePositionView = this->window->mapPixelToCoords(this->mousePositionWindow);
-    ///std::cout<<mousePositionWindow.x<<" "<<mousePositionWindow.y<<"\n";
+    ///std::cout<<mousePositionWindow.x<<" "<<mousePositionWindow.y<<"\n";                      ///Position testing
 }
 
 void Game::update() {
     this->pollEvent();
     this->updateMousePosition();
-    if(enemy.getAlive()==0)
+    if (enemy.getAlive() == 0)
         this->NextEnemyButton.setOn();
     else
-        this->NextEnemyButton.setOff(this->enemy.getCurrentHp(),this->enemy.getInitialHp());
+        this->NextEnemyButton.setOff(this->enemy.getCurrentHp(), this->enemy.getInitialHp());
 }
 
 void Game::render() {
     ///Clear old frame
     this->window->clear(sf::Color::White);
     ///Draw game aka render objects
+    this->window->draw(background);
     if (enemy.getAlive())
         this->window->draw(enemy.renderEnemy());
     this->window->draw(NextEnemyButton.getBackGround());
     this->window->draw(NextEnemyButton.getButton());
     this->window->draw(NextEnemyButton.getText());
+    this->window->draw(UpgradeButton.getButton());
     ///Display what was drawn
     this->window->display();
 }
-
 ///Game(const Game&) = delete;

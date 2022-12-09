@@ -1,24 +1,14 @@
 #include "UserInterface.h"
+#include "Game.h"
 
 ///Constructor and Destructor
 UserInterface::UserInterface() {
-    this->button.setPosition(4.f, 696.f);
-    this->button.setSize(sf::Vector2f(592.f, 100.f));
-    this->button.setFillColor(sf::Color::Red);
+    this->button.setPosition(500.f, 635.f);
+    this->button.setSize(sf::Vector2f(65.f, 65.f));
+    this->button.setFillColor(sf::Color::Yellow);
     this->button.setOutlineColor(sf::Color::Black);
     this->button.setOutlineThickness(4.f);
-
-    this->backGround.setPosition(4.f, 696.f);
-    this->backGround.setSize(sf::Vector2f(592.f, 100.f));
-    this->backGround.setFillColor(sf::Color(191, 191, 191,250));
-    this->backGround.setOutlineColor(sf::Color::Black);
-    this->backGround.setOutlineThickness(4.f);
-
-    font.loadFromFile("FreeSans-1Zge.otf");
-    this->text.setFont(font);
-    this->text.setString("Next Enemy!");
-    this->text.setFillColor(sf::Color::Black);
-    this->text.setCharacterSize(30);
+    std::cout << "Constructor de butoane\n";
 }
 
 UserInterface::~UserInterface() = default;
@@ -34,32 +24,8 @@ const sf::RectangleShape &UserInterface::getButton() const {
     return button;
 }
 
-const sf::RectangleShape &UserInterface::getBackGround() const {
-    return backGround;
+void UserInterface::MoreDamage(sf::Vector2f mousePositionView) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) and this->button.getGlobalBounds().contains(mousePositionView))
+        Game::setClickDamage(Game::getClickDamage() + 1);
 }
-
-const sf::Text &UserInterface::getText() const {
-    return text;
-}
-
 ///Function
-void UserInterface::setOn() {
-    this->button.setPosition(4.f, 696.f);
-    this->button.setSize(sf::Vector2f(592.f, 100.f));
-    this->button.setFillColor(sf::Color::Cyan);
-    this->button.setOutlineColor(sf::Color::Black);
-    this->button.setOutlineThickness(4.f);
-
-    this->text.setString("Next Enemy!");
-    this->text.setPosition(220.f,725.f);
-}
-
-void UserInterface::setOff(int currentHp, int initialHp) {
-    this->button.setPosition(4.f, 696.f);
-    this->button.setSize(sf::Vector2f((592.f/(float)initialHp)*(float)currentHp, 100.f));
-    this->button.setFillColor(sf::Color::Green);
-    this->button.setOutlineColor(sf::Color::Black);
-    this->button.setOutlineThickness(4.f);
-
-    this->text.setString("");
-}

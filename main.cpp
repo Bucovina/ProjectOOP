@@ -1,5 +1,7 @@
 #include "Game.h"
 
+int Game::click_damage = 1;
+
 int main() {
     ///Initialize Game
     Game game;

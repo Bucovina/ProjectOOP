@@ -1,10 +1,11 @@
 # Clicker Game
-- A game where you click enemies in order to defeat your square enemy!
+
+- A game where you click in order to defeat your square enemy!
 
 ### Tema 0
 
-- [ ] Nume proiect: Clicker Game
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementation
+- [x] Nume proiect: Clicker Game
+- [x] Scurtă descriere a temei alese, ce v-ați propus să implementation
 
 ## Tema 1
 
@@ -28,7 +29,7 @@
 
 #### Cerințe
 
-- [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
+- [x] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
 - [ ] moșteniri
     - [ ] funcții virtuale (pure) apelate prin pointeri de bază, constructori virtuali (clone)
     - [ ] apelarea constructorului din clasa de bază
@@ -38,11 +39,11 @@
 - [ ] excepții
     - [ ] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`
     - [ ] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`
-- [ ] funcții și atribute `static`
+- [x] funcții și atribute `static`
 - [ ] STL
-- [ ] cât mai multe `const`
-- [ ] la sfârșit: commit separat cu adăugarea unei noi derivate
-- [ ] tag de `git`: de exemplu `v0.2`
+- [x] cât mai multe `const`
+- [x] la sfârșit: commit separat cu adăugarea unei noi derivate
+- [x] tag de `git`: de exemplu `v0.2`
 
 ## Tema 3
 
