@@ -21,7 +21,7 @@ void Game::initializeWindow() {
 }
 
 void Game::initializeBackground() {
-    this->backgroundTexture.loadFromFile("background.jpg");
+    this->backgroundTexture.loadFromFile("Resources/background.jpg");
     this->background.setTexture(this->backgroundTexture);
 }
 
