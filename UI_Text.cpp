@@ -1,7 +1,5 @@
 #include "UI_Text.h"
 
-#include <utility>
-
 ///Constructor and Destructor
 UI_Text::UI_Text() {
     this->backGround.setPosition(4.f, 746.f);
@@ -10,7 +8,11 @@ UI_Text::UI_Text() {
     this->backGround.setOutlineColor(sf::Color::Black);
     this->backGround.setOutlineThickness(4.f);
 
-    font.loadFromFile("FreeSans-1Zge.otf");
+    if(!font.loadFromFile("textfont.otf"))
+    {
+        std::cout<<"Font error!\n";
+        ///throw ;
+    }
     this->text.setFont(font);
     this->text.setString("Next Enemy!");
     this->text.setFillColor(sf::Color::Black);
