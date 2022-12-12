@@ -1,9 +1,9 @@
 #include "UI_Text.h"
 #include <execution>
 
-class FontException: public std::exception{
+class FontException : public std::exception {
 public:
-    const char * background () const throw () { return "Font loading error";}
+    const char *background() const throw() { return "Font loading error"; }
 };
 
 ///Constructor and Destructor
@@ -14,7 +14,8 @@ UI_Text::UI_Text() {
     this->backGround.setOutlineColor(sf::Color::Black);
     this->backGround.setOutlineThickness(4.f);
     if (!font.loadFromFile("textfont.otf")) {
-            throw FontException();
+        std::cout << "Font error!";
+        ///throw FontException();
     }
     this->text.setFont(font);
     this->text.setString("Next Enemy!");
