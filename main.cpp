@@ -5,8 +5,7 @@ int Game::click_damage = 1;
 int main() {
     ///Initialize Game
     Game game;
-
-    ///Game loop
+   ///Game loop
     while (game.runningGame()) {
         ///Update
         game.update();

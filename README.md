@@ -36,11 +36,11 @@
     - [ ] smart pointers
     - [ ] `dynamic_cast`
 - [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
-- [ ] excepții
-    - [ ] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`
-    - [ ] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`
+- [x] excepții
+    - [x] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`
+    - [x] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`
 - [x] funcții și atribute `static`
-- [ ] STL
+- [x] STL
 - [x] cât mai multe `const`
 - [x] la sfârșit: commit separat cu adăugarea unei noi derivate
 - [x] tag de `git`: de exemplu `v0.2`
@@ -61,3 +61,6 @@
 
 - [SFML](https://github.com/SFML/SFML/tree/aa82ea132b9296a31922772027ad5d14c1fa381b) (Zlib)
 - adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
+
+-https://wallpapersafari.com/w/KxSqdt
+-

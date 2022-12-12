@@ -7,9 +7,20 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <execution>
 #include "Enemy.h"
 #include "UserInterface.h"
 #include "UI_Text.h"
+
+class BackgroundExceprion: public std::exception{
+public:
+    const char * background () const throw () { return "Background texture loading error";}
+};
+
+class FontException: public std::exception{
+public:
+    const char * background () const throw () { return "Font loading error";}
+};
 
 ///"Game engine" class
 
@@ -38,12 +49,19 @@ private:
     sf::Texture backgroundTexture;
     sf::Sprite background;
 
+    ///Tips
+    std::array<std::string,4> text={"Tip:Click the enemies!","Tip:Defeat the cubes!","Tip:Click the cubes!","Tip:Click click click!"};
+    sf::Text tips;
+    sf::Font font;
+
     ///Private functions
     void initializeVariables();
 
     void initializeWindow();
 
     void initializeBackground();
+
+    void initializeTips();
 
 public:
     ///Constructor and Destructor

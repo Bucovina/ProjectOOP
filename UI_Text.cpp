@@ -1,4 +1,10 @@
 #include "UI_Text.h"
+#include <execution>
+
+class FontException: public std::exception{
+public:
+    const char * background () const throw () { return "Font loading error";}
+};
 
 ///Constructor and Destructor
 UI_Text::UI_Text() {
@@ -7,11 +13,8 @@ UI_Text::UI_Text() {
     this->backGround.setFillColor(sf::Color(191, 191, 191, 250));
     this->backGround.setOutlineColor(sf::Color::Black);
     this->backGround.setOutlineThickness(4.f);
-
-    if(!font.loadFromFile("textfont.otf"))
-    {
-        std::cout<<"Font error!\n";
-        ///throw ;
+    if (!font.loadFromFile("textfont.otf")) {
+            throw FontException();
     }
     this->text.setFont(font);
     this->text.setString("Next Enemy!");
@@ -27,7 +30,6 @@ const sf::Text &UI_Text::getText() const {
 const sf::RectangleShape &UI_Text::getBackGround() const {
     return backGround;
 }
-
 
 ///Function
 void UI_Text::setOn() {

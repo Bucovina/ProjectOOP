@@ -36,7 +36,7 @@ Enemy::Enemy(const Enemy &enemy) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
-    os << " hp: " << enemy.currentHp << " alive: " << enemy.alive << "\n";
+    os << "hp: " << enemy.currentHp << " alive: " << enemy.alive << "\n";
     return os;
 }
 

@@ -21,15 +21,33 @@ void Game::initializeWindow() {
 }
 
 void Game::initializeBackground() {
-    this->backgroundTexture.loadFromFile("background.jpg");
+    if (!this->backgroundTexture.loadFromFile("background.jpg")) {
+        throw BackgroundExceprion{};
+    }
     this->background.setTexture(this->backgroundTexture);
+}
+
+void Game::initializeTips() {
+    if (!font.loadFromFile("textfont.otf")) {
+        throw FontException();
+    }
+    this->tips.setFont(font);
+    this->tips.setString(text[rand()%4]);
+    this->tips.setFillColor(sf::Color::White);
+    this->tips.setCharacterSize(30);
+    this->tips.setPosition(0.f, 100.f);
 }
 
 ///Constructor and Destructor
 Game::Game() {
     this->initializeVariables();
-    this->initializeBackground();
+    try {
+        this->initializeBackground();
+    } catch (BackgroundExceprion& err) {
+        std::cout <<err.background()<< "\n";
+    }
     this->initializeWindow();
+    this->initializeTips();
 }
 
 Game::~Game() {
@@ -116,7 +134,10 @@ void Game::render() {
     this->window->draw(NextEnemyButton.getButton());
     this->window->draw(NextEnemyButton.getText());
     this->window->draw(UpgradeButton.getButton());
+    this->window->draw(tips);
     ///Display what was drawn
     this->window->display();
 }
+
+
 ///Game(const Game&) = delete;
