@@ -16,6 +16,7 @@ Enemy::~Enemy() {
 
 ///Operators
 Enemy &Enemy::operator=(const Enemy &enemy) {
+    size=enemy.size;
     initialHp = enemy.initialHp;
     currentHp = enemy.currentHp;
     alive = enemy.alive;

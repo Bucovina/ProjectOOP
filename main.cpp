@@ -3,6 +3,7 @@
 int Game::click_damage = 1;
 
 int main() {
+    srand(time(nullptr));
     ///Initialize Game
     try {
         Game game;

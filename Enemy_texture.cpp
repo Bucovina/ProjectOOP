@@ -39,7 +39,6 @@ void Enemy_texture::DamageEnemy(sf::Vector2f mousePositionView, int click_damage
 }
 
 void Enemy_texture::NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext) {
-    srand(time(nullptr));
     int random=rand()%4;
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         if (buttonNext.getGlobalBounds().contains(mousePositionView) and this->alive == 0) {

@@ -9,8 +9,6 @@ void Game::initializeVariables() {
     ///Game logic
     this->coins = 0;
     this->score = 0;
-    enemy = std::make_shared<Enemy_texture>();
-    enemy->setAlive(true);
 }
 
 void Game::initializeWindow() {
@@ -46,6 +44,8 @@ Game::Game() {
     this->initializeBackground();
     this->initializeTips();
     this->initializeWindow();
+    enemy = std::make_shared<Enemy_texture>();
+    enemy->setAlive(true);
 }
 
 Game::~Game() {

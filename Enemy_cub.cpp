@@ -32,7 +32,6 @@ void Enemy_cub::DamageEnemy(sf::Vector2f mousePositionView, int click_damage) {
 }
 
 void Enemy_cub::NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext) {
-    srand(time(nullptr));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         if (buttonNext.getGlobalBounds().contains(mousePositionView) and this->alive == 0) {
             this->initialHp = rand() % this->initialHp % 5 + this->initialHp;
