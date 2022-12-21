@@ -9,6 +9,8 @@ void Game::initializeVariables() {
     ///Game logic
     this->coins = 0;
     this->score = 0;
+    enemy = std::make_shared<Enemy_texture>();
+    enemy->setAlive(true);
 }
 
 void Game::initializeWindow() {
@@ -17,7 +19,7 @@ void Game::initializeWindow() {
 
     this->window = new sf::RenderWindow(this->videoMode, "Clicker-Game", sf::Style::Titlebar | sf::Style::Close);
 
-    this->window->setFramerateLimit(60);
+    this->window->setFramerateLimit(30);
 }
 
 void Game::initializeBackground() {
@@ -35,19 +37,15 @@ void Game::initializeTips() {
     this->tips.setString(text[rand() % 4]);
     this->tips.setFillColor(sf::Color::White);
     this->tips.setCharacterSize(30);
-    this->tips.setPosition(0.f, 100.f);
+    this->tips.setPosition(5.f, 56.f);
 }
 
 ///Constructor and Destructor
 Game::Game() {
     this->initializeVariables();
-    try {
-        this->initializeBackground();
-    } catch (BackgroundException &err) {
-        std::cout << err.background() << "\n";
-    }
-    this->initializeWindow();
+    this->initializeBackground();
     this->initializeTips();
+    this->initializeWindow();
 }
 
 Game::~Game() {
@@ -92,15 +90,32 @@ void Game::pollEvent() {
                 break;
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    this->enemy.DamageEnemy(this->getMousePositionView(), click_damage);
-                    std::cout << enemy;
-                    this->enemy.NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
+
+                    hp = enemy->getInitialHp();
+                    if (this->enemy->getAlive()) {
+                        this->enemy->DamageEnemy(this->getMousePositionView(), click_damage);
+                        this->check = true;
+                        if (!this->enemy->getAlive()) {
+                            this->coins += enemy->getInitialHp() / 10;
+                            this->score += enemy->getInitialHp();
+                            if (rand() % 2) {
+                                enemy = std::make_shared<Enemy_texture>();
+                                enemy->setInitialHp(hp);
+                            } else {
+                                enemy = std::make_shared<Enemy_cub>();
+                                enemy->setInitialHp(hp);
+                            }
+                        }
+                    }
+                    this->enemy->NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
+
                     this->UpgradeButton.MoreDamage(this->getMousePositionView());
                 }
                 break;
-            case sf::Event::MouseButtonReleased:
-                if (event.mouseButton.button == sf::Mouse::Left) {
-                }
+            case sf::Event::MouseButtonReleased: {
+
+            }
+                break;
             default:
                 break;
         }
@@ -117,10 +132,12 @@ void Game::updateMousePosition() {
 void Game::update() {
     this->pollEvent();
     this->updateMousePosition();
-    if (enemy.getAlive() == 0)
+
+    if (enemy->getAlive() == 0)
         this->NextEnemyButton.setOn();
     else
-        this->NextEnemyButton.setOff(this->enemy.getCurrentHp(), this->enemy.getInitialHp());
+        this->NextEnemyButton.setOff(this->enemy->getCurrentHp(), this->enemy->getInitialHp());
+    this->CoinsScoreUI.updateCoinsScore(coins, score);
 }
 
 void Game::render() {
@@ -128,16 +145,17 @@ void Game::render() {
     this->window->clear(sf::Color::White);
     ///Draw game aka render objects
     this->window->draw(background);
-    if (enemy.getAlive())
-        this->window->draw(enemy.renderEnemy());
+    if (enemy->getAlive())
+        enemy->renderEnemy(*window);
     this->window->draw(NextEnemyButton.getBackGround());
     this->window->draw(NextEnemyButton.getButton());
     this->window->draw(NextEnemyButton.getText());
+    this->window->draw(CoinsScoreUI.getButton());
+    this->window->draw(CoinsScoreUI.getText());
     this->window->draw(UpgradeButton.getButton());
-    this->window->draw(tips);
+    if (check == 0)
+        this->window->draw(tips);
     ///Display what was drawn
     this->window->display();
 }
-
-
 ///Game(const Game&) = delete;

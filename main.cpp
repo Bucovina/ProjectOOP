@@ -4,14 +4,21 @@ int Game::click_damage = 1;
 
 int main() {
     ///Initialize Game
-    Game game;
-    ///Game loop
-    while (game.runningGame()) {
-        ///Update
-        game.update();
+    try {
+        Game game;
+        ///Game loop
+        while (game.runningGame()) {
+            ///Update
+            game.update();
 
-        ///Render
-        game.render();
+            ///Render
+            game.render();
+        }
+    }catch (FontException &err) {
+        std::cout << err.font() << "\n";
     }
-    return 0;
+    catch (BackgroundException &err) {
+        std::cout << err.background() << "\n";
+    }
+        return 0;
 }

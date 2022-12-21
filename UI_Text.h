@@ -10,6 +10,9 @@ private:
     sf::Font font;
     sf::RectangleShape backGround;
 
+    ///Game logic
+    bool check = false;
+
 public:
     ///Constructor and Destructor
     UI_Text();
@@ -23,6 +26,8 @@ public:
     void setOff(int currentHp, int initialHp);
 
     void setOn();
+
+    void updateCoinsScore(int coins, int score);
 };
 
 

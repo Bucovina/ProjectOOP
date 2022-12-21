@@ -30,12 +30,13 @@
 #### Cerințe
 
 - [x] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
-- [ ] moșteniri
-    - [ ] funcții virtuale (pure) apelate prin pointeri de bază, constructori virtuali (clone)
-    - [ ] apelarea constructorului din clasa de bază
-    - [ ] smart pointers
+- [x] moșteniri
+    - [x] funcții virtuale (pure) apelate prin pointeri de bază
+    - [x] constructori virtuali (clone)
+    - [x] apelarea constructorului din clasa de bază
+    - [x] smart pointers
     - [ ] `dynamic_cast`
-- [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
+- [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap (copy and swap aka deep copy)
 - [x] excepții
     - [x] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`
     - [x] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`

@@ -76,7 +76,7 @@ sfml_set_custom_stdlib(sfml-graphics)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h Enemy.cpp Enemy.h UserInterface.cpp UserInterface.h UI_Text.cpp UI_Text.h)
+add_executable(${PROJECT_NAME} main.cpp Game.cpp Game.h Enemy.cpp Enemy.h UserInterface.cpp UserInterface.h UI_Text.cpp UI_Text.h Enemy_cub.cpp Enemy_cub.h Enemy_texture.cpp Enemy_texture.h)
 
 ###############################################################################
 
@@ -155,4 +155,4 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
 # install(FILES some_file1.txt some_file2.md DESTINATION bin)
-install(FILES textfont.otf background.jpg DESTINATION bin)
+install(FILES textfont.otf background.jpg enemy.png enemy1.png enemy2.png enemy3.png DESTINATION bin)

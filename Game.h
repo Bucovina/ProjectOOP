@@ -9,18 +9,22 @@
 #include <SFML/Network.hpp>
 #include <execution>
 #include <array>
+#include <typeinfo>
+#include <memory>
 #include "Enemy.h"
 #include "UserInterface.h"
 #include "UI_Text.h"
+#include "Enemy_cub.h"
+#include "Enemy_texture.h"
 
 class BackgroundException : public std::exception {
 public:
-    const char *background() const throw() { return "Background texture loading error"; }
+    [[nodiscard]] static const char *background() noexcept { return "Background texture loading error"; }
 };
 
 class FontException : public std::exception {
 public:
-    const char *background() const throw() { return "Font loading error"; }
+    [[nodiscard]] static const char *font() noexcept { return "Font loading error"; }
 };
 
 ///"Game engine" class
@@ -37,13 +41,15 @@ private:
     sf::Vector2f mousePositionView;
 
     ///Game logic
+    int hp;
     int coins;
     int score;
     static int click_damage;
 
     ///Game objects
-    Enemy enemy;
+    std::shared_ptr<Enemy> enemy;
     UI_Text NextEnemyButton;
+    UI_Text CoinsScoreUI;
     UserInterface UpgradeButton;
 
     ///Game background
@@ -51,8 +57,9 @@ private:
     sf::Sprite background;
 
     ///Tips
-    std::array<std::string, 4> text = {"Tip:Click the enemies!", "Tip:Defeat the cubes!",
-                                       "Tip:Click the cubes!", "Tip:Click click click!"};
+    bool check = false;
+    std::array<std::string, 4> text = {"Tip:Click the enemy!", "Tip:Defeat the enemy!",
+                                       "Tip:Click!", "Tip:Click click click!"};
     sf::Text tips;
     sf::Font font;
 

@@ -7,12 +7,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <memory>
 
 class Enemy {
-private:
-    ///Game
-    sf::RectangleShape body;
-
+protected:
     ///Game logic
     float size;
     int initialHp;
@@ -23,7 +21,7 @@ public:
     ///Constructor and Destructor
     Enemy();
 
-    ~Enemy();
+    virtual ~Enemy();
 
     ///Operators
     Enemy &operator=(const Enemy &enemy);
@@ -33,18 +31,25 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Enemy &enemy);
 
     ///Getters and Setters
-    const sf::RectangleShape &renderEnemy() const;
+    virtual void renderEnemy(sf::RenderWindow &window) = 0;
 
-    bool getAlive() const;
+    [[nodiscard]]  bool getAlive() const;
 
-    int getCurrentHp() const;
+    void setAlive(bool alive);
 
-    int getInitialHp() const;
+    [[nodiscard]]  int getCurrentHp() const;
+
+    [[nodiscard]]  int getInitialHp() const;
+
+    void setInitialHp(int initialHp);
 
     ///Functions
-    void DamageEnemy(sf::Vector2f mousePositionView, int click_damage);
+    [[nodiscard]] virtual std::shared_ptr<Enemy> clone() const = 0;
 
-    void NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext);
+    virtual void DamageEnemy(sf::Vector2f mousePositionView, int click_damage) = 0;
+
+    virtual void
+    NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext) = 0;
 };
 
 
