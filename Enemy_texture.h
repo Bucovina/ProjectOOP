@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "Enemy_cub.h"
+#include <array>
 
 class Enemy_texture : public Enemy {
 private:
