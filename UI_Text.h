@@ -10,9 +10,6 @@ private:
     sf::Font font;
     sf::RectangleShape backGround;
 
-    ///Game logic
-    bool check = false;
-
 public:
     ///Constructor and Destructor
     UI_Text();

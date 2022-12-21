@@ -65,7 +65,7 @@ void UI_Text::updateCoinsScore(int coins, int score) {
     this->button.setOutlineThickness(4.f);
     std::string string = "Coins: ";
     string += std::to_string(coins);
-    string +="                                  Score: ";
+    string +="                                 Score: ";
     string += std::to_string(score);
     this->text.setPosition(10.f, 8.f);
     this->text.setString(string);
