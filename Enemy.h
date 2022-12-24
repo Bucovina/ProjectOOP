@@ -44,7 +44,7 @@ public:
     void setInitialHp(int initialHp);
 
     ///Functions
-    [[nodiscard]] virtual std::shared_ptr<Enemy> clone() const = 0;
+    [[maybe_unused]] [[nodiscard]] virtual std::shared_ptr<Enemy> clone() const = 0;
 
     virtual void DamageEnemy(sf::Vector2f mousePositionView, int click_damage) = 0;
 

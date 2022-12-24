@@ -8,8 +8,8 @@
 class Enemy_texture : public Enemy {
 private:
 ///Game
-    std::array<std::string, 4> skin={"enemy.png","enemy1.png","enemy2.png","enemy3.png"};
-    std::array<std::array<float,2>,4> position={{{80,200},{185,200},{160,300},{60,230}}};
+    std::array<std::string, 4> skin = {"enemy.png", "enemy1.png", "enemy2.png", "enemy3.png"};
+    std::array<std::array<float, 2>, 4> position = {{{80, 200}, {185, 200}, {160, 300}, {60, 230}}};
     sf::Texture texture;
     sf::Sprite body;
 

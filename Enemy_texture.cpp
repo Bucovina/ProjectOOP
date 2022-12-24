@@ -8,7 +8,7 @@ public:
 ///Constructor
 Enemy_texture::Enemy_texture() {
     srand(time(nullptr));
-    int random=rand()%4;
+    int random = rand() % 4;
     if (!texture.loadFromFile(skin[random])) {
         throw TextureException();
     }
@@ -39,16 +39,10 @@ void Enemy_texture::DamageEnemy(sf::Vector2f mousePositionView, int click_damage
 }
 
 void Enemy_texture::NextEnemy(sf::Vector2f mousePositionView, const sf::RectangleShape &buttonNext) {
-    int random=rand()%4;
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         if (buttonNext.getGlobalBounds().contains(mousePositionView) and this->alive == 0) {
             this->initialHp = rand() % this->initialHp % 5 + this->initialHp;
             this->currentHp = this->initialHp;
-            if (!texture.loadFromFile(skin[random])) {
-                throw TextureException();
-            }
-            this->body.setTexture(texture);
-            this->body.setPosition(position[random][0], position[random][1]);
             this->alive = true;
         }
 }

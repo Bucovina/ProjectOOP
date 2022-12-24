@@ -51,6 +51,7 @@ private:
     UI_Text NextEnemyButton;
     UI_Text CoinsScoreUI;
     UserInterface UpgradeButton;
+    UserInterface Test;
 
     ///Game background
     sf::Texture backgroundTexture;

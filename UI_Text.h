@@ -25,6 +25,8 @@ public:
     void setOn();
 
     void updateCoinsScore(int coins, int score);
+
+    void dynamic();
 };
 
 

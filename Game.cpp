@@ -5,10 +5,16 @@
 void Game::initializeVariables() {
     ///Window
     this->window = nullptr;
-
+    initializeWindow();
     ///Game logic
     this->coins = 0;
     this->score = 0;
+    enemy = std::make_shared<Enemy_texture>();
+    enemy->setAlive(true);
+
+    auto *co = dynamic_cast<UI_Text *>(&Test);
+    std::cout << "dynamic_cast test: ";
+    co->dynamic();
 }
 
 void Game::initializeWindow() {
@@ -43,9 +49,6 @@ Game::Game() {
     this->initializeVariables();
     this->initializeBackground();
     this->initializeTips();
-    this->initializeWindow();
-    enemy = std::make_shared<Enemy_texture>();
-    enemy->setAlive(true);
 }
 
 Game::~Game() {
@@ -108,7 +111,6 @@ void Game::pollEvent() {
                         }
                     }
                     this->enemy->NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
-
                     this->UpgradeButton.MoreDamage(this->getMousePositionView());
                 }
                 break;

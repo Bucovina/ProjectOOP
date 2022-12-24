@@ -70,3 +70,7 @@ void UI_Text::updateCoinsScore(int coins, int score) {
     this->text.setPosition(10.f, 8.f);
     this->text.setString(string);
 }
+
+void UI_Text::dynamic() {
+    std::cout<<"dynamic_cast reusit\n";
+}
