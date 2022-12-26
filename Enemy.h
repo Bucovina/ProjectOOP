@@ -8,6 +8,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <memory>
+#include <random>
+#include <utility>
 
 class Enemy {
 protected:
@@ -24,9 +26,10 @@ public:
     virtual ~Enemy();
 
     ///Operators
-    Enemy &operator=(const Enemy &enemy);
-
-    Enemy(const Enemy &enemy);
+    Enemy(Enemy &&other)=default;
+    Enemy &operator=(Enemy &&other)=default;
+    Enemy(const Enemy &other)=default;
+    Enemy &operator=(const Enemy &other)=default;
 
     friend std::ostream &operator<<(std::ostream &os, const Enemy &enemy);
 
@@ -44,7 +47,7 @@ public:
     void setInitialHp(int initialHp);
 
     ///Functions
-    [[maybe_unused]] [[nodiscard]] virtual std::shared_ptr<Enemy> clone() const = 0;
+    [[nodiscard]] virtual std::shared_ptr<Enemy> clone() const = 0;
 
     virtual void DamageEnemy(sf::Vector2f mousePositionView, int click_damage) = 0;
 

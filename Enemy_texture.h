@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 #include "Enemy_cub.h"
+#include <memory>
+#include <utility>
 #include <array>
 
 class Enemy_texture : public Enemy {
@@ -14,7 +16,7 @@ private:
     sf::Sprite body;
 
 public:
-    ///Constructor
+///Constructor
     Enemy_texture();
 
 ///Getters and Setters

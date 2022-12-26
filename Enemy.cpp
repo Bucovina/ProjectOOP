@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include <random>
+
 
 ///Constructor and Destructor
 Enemy::Enemy() {
@@ -15,21 +15,6 @@ Enemy::~Enemy() {
 }
 
 ///Operators
-Enemy &Enemy::operator=(const Enemy &enemy) {
-    size=enemy.size;
-    initialHp = enemy.initialHp;
-    currentHp = enemy.currentHp;
-    alive = enemy.alive;
-    return *this;
-}
-
-Enemy::Enemy(const Enemy &enemy) {
-    size = enemy.size;
-    initialHp = enemy.initialHp;
-    currentHp = enemy.currentHp;
-    alive = enemy.alive;
-}
-
 std::ostream &operator<<(std::ostream &os, const Enemy &enemy) {
     os << "hp: " << enemy.currentHp << " alive: " << enemy.alive << "\n";
     return os;
