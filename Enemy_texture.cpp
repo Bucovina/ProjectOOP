@@ -8,12 +8,11 @@ public:
 ///Constructor
 Enemy_texture::Enemy_texture() {
     srand(time(nullptr));
-    int random = rand() % 4;
-    if (!texture.loadFromFile(skin[random])) {
+    if (!texture.loadFromFile(skin[0])) {
         throw TextureException();
     }
     this->body.setTexture(texture);
-    this->body.setPosition(position[random][0], position[random][1]);
+    this->body.setPosition(position[0][0], position[0][1]);
     std::cout << "-Enemy_texture a fost creat\n";
 }
 
@@ -42,6 +41,12 @@ void Enemy_texture::NextEnemy(sf::Vector2f mousePositionView, const sf::Rectangl
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         if (buttonNext.getGlobalBounds().contains(mousePositionView) and this->alive == 0) {
             this->initialHp = rand() % this->initialHp % 5 + this->initialHp;
+            int random = rand() % 4;
+            if (!texture.loadFromFile(skin[random])) {
+                throw TextureException();
+            }
+            this->body.setTexture(texture);
+            this->body.setPosition(position[random][0], position[random][1]);
             this->currentHp = this->initialHp;
             this->alive = true;
         }

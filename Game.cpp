@@ -101,13 +101,8 @@ void Game::pollEvent() {
                         if (!this->enemy->getAlive()) {
                             this->coins += enemy->getInitialHp() / 10;
                             this->score += enemy->getInitialHp();
-                            if (rand() % 2) {
-                                enemy = std::make_shared<Enemy_texture>();
-                                enemy->setInitialHp(hp);
-                            } else {
-                                enemy = std::make_shared<Enemy_cub>();
-                                enemy->setInitialHp(hp);
-                            }
+                            enemy = enemies[rand()%enemies.size()];
+                            enemy->setInitialHp(hp);
                         }
                     }
                     this->enemy->NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
