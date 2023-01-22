@@ -61,7 +61,7 @@ public:
 };
 
 template <typename T>
-void afisare(T x){
+void afisare(const T &x){
     std::cout<<x<<'\n';
 }
 
