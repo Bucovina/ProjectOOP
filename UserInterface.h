@@ -27,7 +27,9 @@ public:
     const sf::RectangleShape &getButton() const;
 
     ///Function
-    void MoreDamage(sf::Vector2f mousePositionView);
+    void MoreDamage(sf::Vector2f mousePositionView,int &price,int &coins);
+
+    void Colors(int price,int coins) ;
 };
 
 #endif //MAIN_CPP_USERINTERFACE_H

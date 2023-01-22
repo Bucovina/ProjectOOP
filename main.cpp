@@ -6,7 +6,7 @@ int main() {
     srand(time(nullptr));
     ///Initialize Game
     try {
-        Game game;
+        auto& game=Game::start_game();
         ///Game loop
         while (game.runningGame()) {
             ///Update

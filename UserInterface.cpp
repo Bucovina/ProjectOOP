@@ -23,9 +23,23 @@ std::ostream &operator<<(std::ostream &os, const UserInterface &userInterface) {
 const sf::RectangleShape &UserInterface::getButton() const {
     return button;
 }
-
-void UserInterface::MoreDamage(sf::Vector2f mousePositionView) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) and this->button.getGlobalBounds().contains(mousePositionView))
-        Game::setClickDamage(Game::getClickDamage() + 1);
-}
 ///Function
+
+void UserInterface::MoreDamage(sf::Vector2f mousePositionView, int &price, int &coins) {
+    if (coins >= price)
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) and
+            this->button.getGlobalBounds().contains(mousePositionView)) {
+            Game::setClickDamage(Game::getClickDamage() + 1);
+            coins -= price;
+            price *= 2;
+        }
+}
+
+void UserInterface::Colors(int price, int coins){
+    if(coins>= price)
+        this->button.setFillColor(sf::Color::Green);
+    else
+        this->button.setFillColor(sf::Color::Yellow);
+}
+
+

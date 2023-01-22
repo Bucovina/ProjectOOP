@@ -50,9 +50,9 @@
 
 #### Cerințe
 
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o funcție șablon (template) cu sens; minim 2 instanțieri
-- [ ] o clasă șablon cu sens; minim 2 instanțieri
+- [~] 2 șabloane de proiectare (design patterns)
+- [x] o funcție șablon (template) cu sens; minim 2 instanțieri
+- [x] o clasă șablon cu sens; minim 2 instanțieri
 
 <!-- - [ ] o specializare pe funcție/clasă șablon -->
 

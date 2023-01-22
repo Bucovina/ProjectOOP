@@ -15,6 +15,9 @@ void Game::initializeVariables() {
     auto *co = dynamic_cast<UI_Text *>(&Test);
     std::cout << "dynamic_cast test: ";
     co->dynamic();
+
+    banner1.setPosition(500,50);
+    banner2.setPosition(0,50);
 }
 
 void Game::initializeWindow() {
@@ -41,7 +44,7 @@ void Game::initializeTips() {
     this->tips.setString(text[rand() % 4]);
     this->tips.setFillColor(sf::Color::White);
     this->tips.setCharacterSize(30);
-    this->tips.setPosition(5.f, 56.f);
+    this->tips.setPosition(100.f, 56.f);
 }
 
 ///Constructor and Destructor
@@ -93,12 +96,13 @@ void Game::pollEvent() {
                 break;
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button == sf::Mouse::Left) {
-
+                    afisare<int>(nr_click++);
                     hp = enemy->getInitialHp();
                     if (this->enemy->getAlive()) {
                         this->enemy->DamageEnemy(this->getMousePositionView(), click_damage);
                         this->check = true;
                         if (!this->enemy->getAlive()) {
+                            afisare<std::string>("InitialHP: "+std::to_string(enemy->getInitialHp()));
                             this->coins += enemy->getInitialHp() / 10;
                             this->score += enemy->getInitialHp();
                             enemy = enemies[rand()%enemies.size()];
@@ -106,7 +110,7 @@ void Game::pollEvent() {
                         }
                     }
                     this->enemy->NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
-                    this->UpgradeButton.MoreDamage(this->getMousePositionView());
+                    this->UpgradeButton.MoreDamage(this->getMousePositionView(),price,coins);
                 }
                 break;
             case sf::Event::MouseButtonReleased: {
@@ -135,6 +139,7 @@ void Game::update() {
     else
         this->NextEnemyButton.setOff(this->enemy->getCurrentHp(), this->enemy->getInitialHp());
     this->CoinsScoreUI.updateCoinsScore(coins, score);
+    this->UpgradeButton.Colors(price,coins);
 }
 
 void Game::render() {
@@ -150,6 +155,8 @@ void Game::render() {
     this->window->draw(CoinsScoreUI.getButton());
     this->window->draw(CoinsScoreUI.getText());
     this->window->draw(UpgradeButton.getButton());
+    this->window->draw(banner1.getBody());
+    this->window->draw(banner2.getBody());
     if (check == 0)
         this->window->draw(tips);
     ///Display what was drawn

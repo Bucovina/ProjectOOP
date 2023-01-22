@@ -27,6 +27,44 @@ public:
     [[nodiscard]] static const char *font() noexcept { return "Font loading error"; }
 };
 
+class TextureException : public std::exception {
+public:
+    [[nodiscard]] static const char *background() noexcept { return "Enemy texture loading error"; }
+};
+
+template <typename T>
+class decor{
+private:
+    T x;
+    T y;
+    sf::Texture texture;
+    sf::Sprite body;
+public:
+    decor(){
+        if (!texture.loadFromFile("banner.png")) {
+            throw TextureException();
+        }
+        this->body.setTexture(texture);
+        this->body.setScale(0.25,0.25);
+        this->body.setPosition(x, y);
+    }
+
+    const sf::Sprite &getBody() const {
+        return body;
+    }
+
+    void setPosition(T x_,T y_) {
+        decor::x = x_;
+        decor::y = y_;
+        this->body.setPosition(x, y);
+    }
+};
+
+template <typename T>
+void afisare(T x){
+    std::cout<<x<<'\n';
+}
+
 ///"Game engine" class
 
 class Game {
@@ -44,7 +82,9 @@ private:
     int hp;
     int coins;
     int score;
+    int price=1;
     static int click_damage;
+    int nr_click=0;
 
     ///Game objects
     std::shared_ptr<Enemy> enemy;
@@ -53,6 +93,8 @@ private:
     UI_Text CoinsScoreUI;
     UserInterface UpgradeButton;
     UserInterface Test;
+    decor<float> banner1;
+    decor<double> banner2;
 
     ///Game background
     sf::Texture backgroundTexture;
@@ -74,39 +116,19 @@ private:
 
     void initializeTips();
 
+    Game();
 public:
     ///Constructor and Destructor
-    Game();
 
     ~Game();
 
-    Game &operator=(Game other) {
-        swap(*this, other);
-        return *this;
-    }
+    Game(const Game&)=delete;
 
-    friend void swap(Game &game1, Game &game2) {
-        using std::swap;
-        std::swap(game1.window, game2.window);
-        std::swap(game1.videoMode, game2.videoMode);
-        std::swap(game1.event, game2.event);
-        std::swap(game1.mousePositionView, game2.mousePositionView);
-        std::swap(game1.mousePositionWindow, game2.mousePositionWindow);
-        std::swap(game1.hp, game2.hp);
-        std::swap(game1.coins, game2.coins);
-        std::swap(Game::click_damage, Game::click_damage);
-        std::swap(game1.score, game2.score);
-        std::swap(game1.enemy, game2.enemy);
-        std::swap(game1.NextEnemyButton, game2.NextEnemyButton);
-        std::swap(game1.CoinsScoreUI, game2.CoinsScoreUI);
-        std::swap(game1.UpgradeButton, game2.UpgradeButton);
-        std::swap(game1.Test, game2.Test);
-        std::swap(game1.backgroundTexture, game2.backgroundTexture);
-        std::swap(game1.background, game2.background);
-        std::swap(game1.check, game2.check);
-        std::swap(game1.text, game2.text);
-        std::swap(game1.tips, game2.tips);
-        std::swap(game1.font, game2.font);
+    Game &operator=(const Game&) =delete;
+
+    static Game& start_game(){
+        static Game game;
+        return game;
     }
 
     ///Operators
