@@ -21,5 +21,8 @@ int main() {
     catch (BackgroundException &err) {
         std::cout << err.background() << "\n";
     }
+    catch (MusicException &err){
+        std::cout << err.music() << "\n";
+    }
         return 0;
 }

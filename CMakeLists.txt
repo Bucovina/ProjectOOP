@@ -66,6 +66,7 @@ FetchContent_MakeAvailable(SFML)
 sfml_set_custom_stdlib(sfml-system)
 sfml_set_custom_stdlib(sfml-window)
 sfml_set_custom_stdlib(sfml-graphics)
+sfml_set_custom_stdlib(sfml-audio)
 
 ###############################################################################
 
@@ -147,7 +148,7 @@ endif ()
 #target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/<SomeHppLib>/include)
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${SFML_SOURCE_DIR}/include)
 target_link_directories(${PROJECT_NAME} PRIVATE ${SFML_BINARY_DIR}/lib)
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-audio sfml-system)
 
 ###############################################################################
 
@@ -155,4 +156,4 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # install(DIRECTORY some_dir1 some_dir2 DESTINATION bin)
 # install(FILES some_file1.txt some_file2.md DESTINATION bin)
-install(FILES textfont.otf background.jpg enemy.png enemy1.png enemy2.png enemy3.png  banner.png DESTINATION bin)
+install(FILES textfont.otf background.jpg enemy.png enemy1.png enemy2.png enemy3.png banner.png music.wav fantasy.wav castle.flac DESTINATION bin)

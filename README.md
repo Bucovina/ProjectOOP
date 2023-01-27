@@ -50,7 +50,7 @@
 
 #### Cerințe
 
-- [~] 2 șabloane de proiectare (design patterns)
+- [x] 2 șabloane de proiectare (design patterns)
 - [x] o funcție șablon (template) cu sens; minim 2 instanțieri
 - [x] o clasă șablon cu sens; minim 2 instanțieri
 
@@ -64,4 +64,5 @@
 - adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
 
 -https://wallpapersafari.com/w/KxSqdt
--
+-https://www.fesliyanstudios.com/royalty-free-music/download/forest-ventures/196
+https://www.fesliyanstudios.com/royalty-free-music/download/fantasy-ambience/1702

@@ -6,7 +6,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include <execution>
 #include <array>
 #include <typeinfo>
@@ -32,6 +31,39 @@ public:
     [[nodiscard]] static const char *background() noexcept { return "Enemy texture loading error"; }
 };
 
+class MusicException : public std::exception {
+public:
+    [[nodiscard]] static const char *music() noexcept { return "Music loading error"; }
+};
+///Music Factory
+class muzica{
+private:
+    sf::Music music;
+     bool loop;
+     std::string name;
+     unsigned int volume;
+public:
+    muzica(bool loop_,std::string name_,unsigned int volume_):loop(loop_), name(std::move(name_)), volume(volume_){
+        if(!music.openFromFile(name))
+            throw MusicException();
+        music.setLoop(loop);
+        music.setVolume(volume);
+        music.play();
+    }
+};
+
+class muzica_factory{
+public:
+    static muzica forest() {return {true,"music.wav", 100};}
+    static muzica fantasy() {return {false,"fantasy.wav",75};}
+    static muzica castle() {return {true,"castle.flac",50};}
+    static muzica random() {
+        std::array<std::string, 3> playlist = {"music.wav", "fantasy.wav", "castle.flac"};
+        return {true,playlist[rand()%3],50};
+    };
+};
+
+///Template
 template <typename T>
 class decor{
 private:
@@ -106,6 +138,9 @@ private:
                                        "Tip:Click!", "Tip:Click click click!"};
     sf::Text tips;
     sf::Font font;
+
+    ///Music
+    muzica muzica= muzica_factory::random();
 
     ///Private functions
     void initializeVariables();

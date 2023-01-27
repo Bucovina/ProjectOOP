@@ -16,8 +16,8 @@ void Game::initializeVariables() {
     std::cout << "dynamic_cast test: ";
     co->dynamic();
 
-    banner1.setPosition(500,50);
-    banner2.setPosition(0,50);
+    banner1.setPosition(500, 50);
+    banner2.setPosition(0, 50);
 }
 
 void Game::initializeWindow() {
@@ -102,15 +102,15 @@ void Game::pollEvent() {
                         this->enemy->DamageEnemy(this->getMousePositionView(), click_damage);
                         this->check = true;
                         if (!this->enemy->getAlive()) {
-                            afisare<std::string>("InitialHP: "+std::to_string(enemy->getInitialHp()));
+                            afisare<std::string>("InitialHP: " + std::to_string(enemy->getInitialHp()));
                             this->coins += enemy->getInitialHp() / 10;
                             this->score += enemy->getInitialHp();
-                            enemy = enemies[rand()%enemies.size()];
+                            enemy = enemies[rand() % enemies.size()];
                             enemy->setInitialHp(hp);
                         }
                     }
                     this->enemy->NextEnemy(this->getMousePositionView(), this->NextEnemyButton.getButton());
-                    this->UpgradeButton.MoreDamage(this->getMousePositionView(),price,coins);
+                    this->UpgradeButton.MoreDamage(this->getMousePositionView(), price, coins);
                 }
                 break;
             case sf::Event::MouseButtonReleased: {
@@ -139,7 +139,7 @@ void Game::update() {
     else
         this->NextEnemyButton.setOff(this->enemy->getCurrentHp(), this->enemy->getInitialHp());
     this->CoinsScoreUI.updateCoinsScore(coins, score);
-    this->UpgradeButton.Colors(price,coins);
+    this->UpgradeButton.Colors(price, coins);
 }
 
 void Game::render() {
