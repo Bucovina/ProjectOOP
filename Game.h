@@ -41,9 +41,9 @@ private:
     sf::Music music;
      bool loop;
      std::string name;
-     unsigned int volume;
+     float volume;
 public:
-    muzica(bool loop_,std::string name_,unsigned int volume_):loop(loop_), name(std::move(name_)), volume(volume_){
+    muzica(bool loop_,std::string name_,float volume_):loop(loop_), name(std::move(name_)), volume(volume_){
         if(!music.openFromFile(name))
             throw MusicException();
         music.setLoop(loop);
@@ -54,9 +54,11 @@ public:
 
 class muzica_factory{
 public:
-    static muzica forest() {return {true,"music.wav", 100};}
-    static muzica fantasy() {return {false,"fantasy.wav",75};}
-    static muzica castle() {return {true,"castle.flac",50};}
+    [[maybe_unused]] static muzica forest() {return {true,"music.wav", 100};}
+
+    [[maybe_unused]] static muzica fantasy() {return {false,"fantasy.wav",75};}
+
+    [[maybe_unused]] static muzica castle() {return {true,"castle.flac",50};}
     static muzica random() {
         std::array<std::string, 3> playlist = {"music.wav", "fantasy.wav", "castle.flac"};
         return {true,playlist[rand()%3],50};
@@ -140,7 +142,7 @@ private:
     sf::Font font;
 
     ///Music
-    muzica muzica= muzica_factory::random();
+    muzica backgroundMusic= muzica_factory::random();
 
     ///Private functions
     void initializeVariables();
