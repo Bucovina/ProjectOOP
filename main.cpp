@@ -6,7 +6,7 @@ int main() {
     srand(time(nullptr));
     ///Initialize Game
     try {
-        auto& game=Game::start_game();
+        auto &game = Game::start_game();
         ///Game loop
         while (game.runningGame()) {
             ///Update
@@ -15,14 +15,14 @@ int main() {
             ///Render
             game.render();
         }
-    }catch (FontException &err) {
+    } catch (FontException &err) {
         std::cout << err.font() << "\n";
     }
     catch (BackgroundException &err) {
         std::cout << err.background() << "\n";
     }
-    catch (MusicException &err){
+    catch (MusicException &err) {
         std::cout << err.music() << "\n";
     }
-        return 0;
+    return 0;
 }

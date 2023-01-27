@@ -35,8 +35,8 @@ void UserInterface::MoreDamage(sf::Vector2f mousePositionView, int &price, int &
         }
 }
 
-void UserInterface::Colors(int price, int coins){
-    if(coins>= price)
+void UserInterface::Colors(int price, int coins) {
+    if (coins >= price)
         this->button.setFillColor(sf::Color::Green);
     else
         this->button.setFillColor(sf::Color::Yellow);
