@@ -26,10 +26,13 @@ public:
     virtual ~Enemy();
 
     ///Operators
-    Enemy(Enemy &&other)=default;
-    Enemy &operator=(Enemy &&other)=default;
-    Enemy(const Enemy &other)=default;
-    Enemy &operator=(const Enemy &other)=default;
+    Enemy(Enemy &&other) = default;
+
+    Enemy &operator=(Enemy &&other) = default;
+
+    Enemy(const Enemy &other) = default;
+
+    Enemy &operator=(const Enemy &other) = default;
 
     friend std::ostream &operator<<(std::ostream &os, const Enemy &enemy);
 

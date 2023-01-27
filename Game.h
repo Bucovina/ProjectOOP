@@ -35,16 +35,17 @@ class MusicException : public std::exception {
 public:
     [[nodiscard]] static const char *music() noexcept { return "Music loading error"; }
 };
+
 ///Music Factory
-class muzica{
+class muzica {
 private:
     sf::Music music;
-     bool loop;
-     std::string name;
-     float volume;
+    bool loop;
+    std::string name;
+    float volume;
 public:
-    muzica(bool loop_,std::string name_,float volume_):loop(loop_), name(std::move(name_)), volume(volume_){
-        if(!music.openFromFile(name))
+    muzica(bool loop_, std::string name_, float volume_) : loop(loop_), name(std::move(name_)), volume(volume_) {
+        if (!music.openFromFile(name))
             throw MusicException();
         music.setLoop(loop);
         music.setVolume(volume);
@@ -52,34 +53,35 @@ public:
     }
 };
 
-class muzica_factory{
+class muzica_factory {
 public:
-    [[maybe_unused]] static muzica forest() {return {true,"music.wav", 100};}
+    [[maybe_unused]] static muzica forest() { return {true, "music.wav", 100}; }
 
-    [[maybe_unused]] static muzica fantasy() {return {false,"fantasy.wav",75};}
+    [[maybe_unused]] static muzica fantasy() { return {false, "fantasy.wav", 75}; }
 
-    [[maybe_unused]] static muzica castle() {return {true,"castle.flac",50};}
+    [[maybe_unused]] static muzica castle() { return {true, "castle.flac", 50}; }
+
     static muzica random() {
         std::array<std::string, 3> playlist = {"music.wav", "fantasy.wav", "castle.flac"};
-        return {true,playlist[rand()%3],50};
+        return {true, playlist[rand() % 3], 50};
     };
 };
 
 ///Template
-template <typename T>
-class decor{
+template<typename T>
+class decor {
 private:
     T x;
     T y;
     sf::Texture texture;
     sf::Sprite body;
 public:
-    decor(){
+    decor() {
         if (!texture.loadFromFile("banner.png")) {
             throw TextureException();
         }
         this->body.setTexture(texture);
-        this->body.setScale(0.25,0.25);
+        this->body.setScale(0.25, 0.25);
         this->body.setPosition(x, y);
     }
 
@@ -87,16 +89,16 @@ public:
         return body;
     }
 
-    void setPosition(T x_,T y_) {
+    void setPosition(T x_, T y_) {
         decor::x = x_;
         decor::y = y_;
         this->body.setPosition(x, y);
     }
 };
 
-template <typename T>
-void afisare(const T &x){
-    std::cout<<x<<'\n';
+template<typename T>
+void afisare(const T &x) {
+    std::cout << x << '\n';
 }
 
 ///"Game engine" class
@@ -116,13 +118,13 @@ private:
     int hp;
     int coins;
     int score;
-    int price=1;
+    int price = 1;
     static int click_damage;
-    int nr_click=0;
+    int nr_click = 0;
 
     ///Game objects
     std::shared_ptr<Enemy> enemy;
-    std::array<std::shared_ptr<Enemy>,2> enemies={Enemy_texture().clone(),Enemy_cub().clone()};
+    std::array<std::shared_ptr<Enemy>, 2> enemies = {Enemy_texture().clone(), Enemy_cub().clone()};
     UI_Text NextEnemyButton;
     UI_Text CoinsScoreUI;
     UserInterface UpgradeButton;
@@ -142,7 +144,7 @@ private:
     sf::Font font;
 
     ///Music
-    muzica backgroundMusic= muzica_factory::random();
+    muzica backgroundMusic = muzica_factory::random();
 
     ///Private functions
     void initializeVariables();
@@ -154,16 +156,17 @@ private:
     void initializeTips();
 
     Game();
+
 public:
     ///Constructor and Destructor
 
     ~Game();
 
-    Game(const Game&)=delete;
+    Game(const Game &) = delete;
 
-    Game &operator=(const Game&) =delete;
+    Game &operator=(const Game &) = delete;
 
-    static Game& start_game(){
+    static Game &start_game() {
         static Game game;
         return game;
     }
