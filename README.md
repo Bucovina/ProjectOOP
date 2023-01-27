@@ -63,6 +63,6 @@
 - [SFML](https://github.com/SFML/SFML/tree/aa82ea132b9296a31922772027ad5d14c1fa381b) (Zlib)
 - adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
 
--https://wallpapersafari.com/w/KxSqdt
--https://www.fesliyanstudios.com/royalty-free-music/download/forest-ventures/196
-https://www.fesliyanstudios.com/royalty-free-music/download/fantasy-ambience/1702
+- https://wallpapersafari.com/w/KxSqdt
+- https://www.fesliyanstudios.com/royalty-free-music/download/forest-ventures/196
+- https://www.fesliyanstudios.com/royalty-free-music/download/fantasy-ambience/1702
